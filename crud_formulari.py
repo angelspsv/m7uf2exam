@@ -20,3 +20,17 @@ def insert_formulari(formulari):
         cur.close()
         conn.close()
 
+
+# funcio schema per exercici 3
+def schema_user(lista):
+    return {
+        "name": lista[0],
+        "surname": lista[1],
+        # el password es un camp sensible
+        "email": lista[3],
+        "address": lista[4],
+        "cp": lista[5],
+        "age": lista[7]
+    }
+
+
