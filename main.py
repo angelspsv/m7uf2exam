@@ -30,3 +30,11 @@ class Formulari(BaseModel):
 async def add_user(formulari: Formulari):
     resposta = insert_formulari(formulari)
     return resposta
+
+
+# Exercici 4
+# get de un usuari, retorna les dades del usuari en format json
+@app.get("/usuari/dades/{mail}", response_model=dict)
+async def llegir_dades_usuari(mail: str):
+    resposta = read_user(mail)
+    return schema_user(resposta)

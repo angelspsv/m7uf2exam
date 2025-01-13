@@ -22,7 +22,7 @@ def insert_formulari(formulari):
 
 
 # funcio schema per exercici 3
-def schema_user(lista):
+def schema_user(lista) -> dict:
     return {
         "name": lista[0],
         "surname": lista[1],
@@ -34,3 +34,26 @@ def schema_user(lista):
     }
 
 
+# exercici 4
+def read_user(mail):
+    try:
+        conn = connection_db()
+        cur = conn.cursor()
+
+        #preparem query select de un usuari segons el seu email
+        cur.execute("SELECT * FROM usuarios WHERE email = %s", (mail,))
+
+        #rebem resultat query_select
+        result_sql = cur.fetchone()
+
+        #si no existeix email, execpcio
+        if result_sql is None:
+            raise HTTPException(status_code=404, detail="Main no trobat")
+
+        #retornem les dades del usuari en una llista
+        return result_sql
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'Error amb la bbdd. {str(e)}')
+    finally:
+        cur.close()
+        conn.close()
