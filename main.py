@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from connection import *
 from pydantic import BaseModel
+from crud_formulari import *
 
 app = FastAPI()
 
@@ -21,3 +22,11 @@ class Formulari(BaseModel):
     direccion: str
     codi_postal: int | None = None
     password: str
+
+
+# Exercici 2
+# post de un nou usuari
+@app.post("/formulari/insert/", response_model=dict)
+async def add_user(formulari: Formulari):
+    resposta = insert_formulari(formulari)
+    return resposta
